@@ -1,0 +1,80 @@
+import Foundation
+
+func leerMedida(_ mensaje: String) -> Double? {
+    while true {
+        print(mensaje, terminator: " ")
+
+        guard let entrada = readLine() else {
+            return nil
+        }
+
+        let texto = entrada
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: ",", with: ".")
+
+        if let valor = Double(texto), valor > 0 {
+            return valor
+        }
+
+        print("Dato no válido. Ingresa un número mayor que 0.")
+    }
+}
+
+while true {
+    print("""
+    
+    MENÚ DE ÁREAS
+    1. Área del cuadrado
+    2. Área del rectángulo
+    3. Área del triángulo
+    4. Área del círculo
+    5. Salir
+    """)
+
+    guard let opcion = readLine() else {
+        break
+    }
+
+    switch opcion.trimmingCharacters(in: .whitespacesAndNewlines) {
+    case "1":
+        guard let lado = leerMedida("Ingresa la medida del lado:") else {
+            continue
+        }
+        let area = lado * lado
+        print("El área del cuadrado es: \(String(format: "%.2f", area))")
+
+    case "2":
+        guard let base = leerMedida("Ingresa la base del rectángulo:"),
+              let altura = leerMedida("Ingresa la altura del rectángulo:") else {
+            continue
+        }
+        let area = base * altura
+        print("El área del rectángulo es: \(String(format: "%.2f", area))")
+
+    case "3":
+        guard let base = leerMedida("Ingresa la base del triángulo:"),
+              let altura = leerMedida("Ingresa la altura del triángulo:") else {
+            continue
+        }
+        let area = (base * altura) / 2
+        print("El área del triángulo es: \(String(format: "%.2f", area))")
+
+    case "4":
+        guard let radio = leerMedida("Ingresa el radio del círculo:") else {
+            continue
+        }
+        let area = Double.pi * radio * radio
+        print("El área del círculo es: \(String(format: "%.2f", area))")
+
+    case "5":
+        print("Saliendo del programa.")
+        break
+
+    default:
+        print("Opción no válida. Elige un número del 1 al 5.")
+    }
+
+    if opcion.trimmingCharacters(in: .whitespacesAndNewlines) == "5" {
+        break
+    }
+}
